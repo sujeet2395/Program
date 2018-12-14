@@ -1,0 +1,1 @@
+This file is used to transfer over net using FTP though valid ip address.
