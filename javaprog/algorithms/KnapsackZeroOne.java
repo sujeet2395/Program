@@ -4,27 +4,19 @@ import static java.lang.Math.max;
 import java.util.Scanner;
 
 public class KnapsackZeroOne {
-    public static void main(String[] args) {
-        int n, t, i, j;
-        Scanner sc=new Scanner(System.in);
-        t=sc.nextInt();
-        while(t-->0)
-        {
-            n=sc.nextInt();
-            int w[]=new int[n];
-            int val[]=new int[n];
-            
-            for(i=0; i<n; i++)
-            {
-                w[i]=sc.nextInt();
+    public static int knapsackDublicat(int[] val, int[] wt, int n, int W) {
+        int[] K=new int[W+1];
+        for(int i=0;i<=W;i++){
+            for(int j=0;j<n;j++){
+                if(i>=wt[j])
+                    K[i]=max(val[j]+K[i-wt[j]], K[i]);
             }
-            for(i=0; i<n; i++)
-            {
-                val[i]=sc.nextInt();
-            }
-            int W=sc.nextInt();
-            
-            int m[][]=new int[n+1][W+1];
+        }
+        return K[W];
+    }
+    public static int knapsackZeroOne(int[] val, int[] w, int n, int W) {
+        int i, j;
+        int m[][]=new int[n+1][W+1];
                         
             for(i=1; i<=n; i++)
             {
@@ -38,7 +30,7 @@ public class KnapsackZeroOne {
                     }
                 }
             }
-            for(i=0; i<=n; i++)
+           /* for(i=0; i<=n; i++)
             {
                 for(j=0; j<=W; j++)
                 {
@@ -58,7 +50,32 @@ public class KnapsackZeroOne {
                     j-=w[i-1];
                     i-=1;
                 }
+            }*/
+           return m[n][W];
+    }
+    public static void main(String[] args) {
+        int n, t, i, j;
+        Scanner sc=new Scanner(System.in);
+        t=sc.nextInt();
+        while(t-->0)
+        {
+            n=sc.nextInt();
+                        
+            int W=sc.nextInt();
+            int w[]=new int[n];
+            int val[]=new int[n];
+            for(i=0; i<n; i++)
+            {
+                val[i]=sc.nextInt();
             }
+            for(i=0; i<n; i++)
+            {
+                w[i]=sc.nextInt();
+            }
+
+            //System.out.println(knapsackZeroOne(val, w, n, W));
+            System.out.println(knapsackDublicat(val, w, n, W));
+            
         }
     }
 }
