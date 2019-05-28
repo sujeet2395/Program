@@ -1,0 +1,38 @@
+
+LenLongStr <- function(String1, String2) {
+  
+  s1 <- unlist(strsplit(String1,split=""))
+  s2 <- unlist(strsplit(String2,split=""))
+  
+  num <- matrix(0,nchar(String1),nchar(String2) )		
+  maxlen <- 0
+  
+  for (i in 1:nchar(String1)) {
+    
+    for (j in 1:nchar(String2)) {
+      
+      if (s1[i] == s2[j]) {
+        if ((i==1) || (j==1)) { 
+          num[i,j] <- 1
+        } 
+        else {
+          num[i,j] <- 1+num[i-1,j-1]
+        }
+        if (num[i,j] > maxlen) {
+          maxlen <- num[i,j]
+          pos_i<-i
+          pos_j<-j
+        }
+      }
+    }
+  }
+  
+  stringLCS<-substr(String1,(pos_i-maxlen+1),pos_i)
+  
+  stringLCS			
+}
+
+
+
+
+
